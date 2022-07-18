@@ -7,6 +7,7 @@
 
 - getProductsList api: done
 - getProductsById api: done
+- swagger url - http://vishal-my-shop.com.s3-website.ap-south-1.amazonaws.com/
 
 ## ProductService endpoints
 
@@ -20,6 +21,7 @@
 - esbuild is configured instead of webpack
 - separate modules for getProductsList and getProductsById lambda functions
 - "Product not found" message is displayed when invalid productId is passed
+- swagger docs added
 
 ## Product Schema
 

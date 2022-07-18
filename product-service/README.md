@@ -1,5 +1,7 @@
 # Product Service
 
+### swagger url - http://vishal-my-shop.com.s3-website.ap-south-1.amazonaws.com/
+
 ## ProductService endpoints
 
 - method: GET - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products

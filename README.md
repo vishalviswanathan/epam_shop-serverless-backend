@@ -1,27 +1,18 @@
 ## Services are done and integrated with frontend
 
-- Frontend PR - https://github.com/vishalviswanathan/epam_shop-react-redux-cloudfront/pull/2
+- Frontend PR - https://github.com/vishalviswanathan/epam_shop-react-redux-cloudfront/pull/3
 - Frontend url - https://d3e54r96b1lphj.cloudfront.net
 
 ## ProductService
 
-- getProductsList api: done
-- getProductsById api: done
-- swagger url - http://vishal-my-shop.com.s3-website.ap-south-1.amazonaws.com/
+- integrate aws rds(used postgresql)
+- createProduct api: done
 
 ## ProductService endpoints
 
 - method: GET - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products
 - method: GET - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products/{productId}
-
-## Additional scopes
-
-- async/await added in lambda handler function
-- es6 modules used
-- esbuild is configured instead of webpack
-- separate modules for getProductsList and getProductsById lambda functions
-- "Product not found" message is displayed when invalid productId is passed
-- swagger docs added
+- method: POST - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products
 
 ## Product Schema
 
@@ -34,31 +25,23 @@
 	"properties":	{
 		"id": {
 			"description": "Product ID to uniquely identify the product",
-			"type": "integer"
+			"type": "uuid"
 		},
 		"title": {
 			"description": "Title of the product",
 			"type": "string",
 		},
-    "description": {
+    	"description": {
 			"description": "Description about the product",
 			"type": "string",
 		},
-    "price": {
+    	"price": {
 			"description": "Price of the product",
 			"type": "number",
 		},
-    "category": {
-			"description": "Category of the product",
-			"type": "string",
-		},
-    "image": {
-			"description": "The url of the product image",
-			"type": "string",
-		},
-    "quantity": {
+    	"product_count": {
 			"description": "Available quanities of product",
-			"type": "number",
+			"type": "integer",
 		}
 	}
 }

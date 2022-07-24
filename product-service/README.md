@@ -1,11 +1,10 @@
 # Product Service
 
-### swagger url - http://vishal-my-shop.com.s3-website.ap-south-1.amazonaws.com/
-
 ## ProductService endpoints
 
 - method: GET - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products
 - method: GET - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products/{productId}
+- method: POST - https://ywjkmsxky5.execute-api.ap-south-1.amazonaws.com/dev/products
 
 ## Product Schema
 
@@ -18,31 +17,23 @@
 	"properties":	{
 		"id": {
 			"description": "Product ID to uniquely identify the product",
-			"type": "integer"
+			"type": "uuid"
 		},
 		"title": {
 			"description": "Title of the product",
 			"type": "string",
 		},
-    "description": {
+    	"description": {
 			"description": "Description about the product",
 			"type": "string",
 		},
-    "price": {
+    	"price": {
 			"description": "Price of the product",
 			"type": "number",
 		},
-    "category": {
-			"description": "Category of the product",
-			"type": "string",
-		},
-    "image": {
-			"description": "The url of the product image",
-			"type": "string",
-		},
-    "quantity": {
+    	"product_count": {
 			"description": "Available quanities of product",
-			"type": "number",
+			"type": "integer",
 		}
 	}
 }

@@ -4,6 +4,7 @@ import { Client } from "pg";
 
 const getProductsById = async (event) => {
   const id: string = event.pathParameters.productId;
+  console.log("event body path params =>", event.pathParameters);
 
   const client = new Client({
     user: process.env.DBUSERNAME,

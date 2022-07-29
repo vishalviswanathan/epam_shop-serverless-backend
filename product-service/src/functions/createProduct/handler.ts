@@ -8,8 +8,8 @@ import schema from "./schema";
 const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log("event body request params =>", event, event.body);
-  const {title, description, price, product_count} = event.body;
+  console.log("event body request params =>", event.body);
+  const { title, description, price, product_count } = event.body;
 
   const client = new Client({
     user: process.env.DBUSERNAME,
@@ -31,21 +31,19 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   });
 
   try {
-    const queryString = `
-    with rows as (
-      insert into products(title, description, price) values ($1, $2, $3) returning id
-    )
-    insert into stocks(product_id, product_count) 
-      select id, $4
-      from rows
-      returning product_id;
-        `;
-    const queryValue = [title, description, price, product_count];
-    const res = await client.query(queryString, queryValue);
+    await client.query("BEGIN");
+    const insertProduct =
+      "insert into products(title, description, price) values ($1, $2, $3) returning id;";
+    const res = await client.query(insertProduct, [title, description, price]);
+    const insertStock =
+      "insert into stocks(product_id, product_count) values ($1, $2);";
+    await client.query(insertStock, [res.rows[0].id, product_count]);
+    await client.query("COMMIT");
     await client.end();
+    console.log("res rows", res.rows);
     if (res.rows.length) {
       return formatJSONResponse({
-        data: res.rows,
+        data: res.rows[0].id,
       });
     } else {
       return formatJSONResponse(
@@ -56,6 +54,7 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
   } catch (error) {
+    console.log("error message", error.message);
     await client.end();
     return formatJSONResponse(
       {

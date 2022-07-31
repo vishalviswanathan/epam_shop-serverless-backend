@@ -10,4 +10,11 @@ export default {
       },
     },
   ],
+  environment: {
+    DBNAME: '${self:custom.rds.dbName}',
+    DBUSERNAME: '${self:custom.rds.username}',
+    DBPASSWORD: '${self:custom.rds.password}',
+    DBHOST: '${self:custom.rds.host}',
+    DBPORT: '${self:custom.rds.port}'
+  }  
 };

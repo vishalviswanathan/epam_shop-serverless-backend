@@ -39,7 +39,23 @@ export const importFileParser = async (event) => {
   try {
     const parseStatus = await parseCSV;
     console.log("parse success", parseStatus);
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify(parseStatus),
+    };
   } catch (error) {
     console.log("parse error", error);
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify(error),
+    };
   }
 };

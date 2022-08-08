@@ -1,0 +1,56 @@
+org: vishalv
+app: import-service
+service: import-service
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-esbuild
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude:
+      - aws-sdk
+    target: 'node14'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: 'ap-south-1'
+  iam:
+    role:
+      statements:
+         - Effect: Allow
+           Action: 's3:ListBucket'
+           Resource: 
+             - 'arn:aws:s3:::myshopuploads'
+         - Effect: Allow
+           Action:
+             - 's3:*'
+           Resource: 
+             - 'arn:aws:s3:::myshopuploads/*'
+
+functions:
+  importProductsFile:
+    handler: handler.importProductsFile
+    events: 
+      - http: 
+          method: get
+          path: import
+          cors: true
+          request: 
+            parameters:
+              querystrings:
+                name: true
+  importFileParser:
+    handler: handler.importFileParser
+    events:
+       - s3:
+           bucket: myshopuploads
+           event: s3:ObjectCreated:*
+           rules:
+             - prefix: uploaded/
+           existing: true
